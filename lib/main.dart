@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:app_links/app_links.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +9,6 @@ import 'package:flutter_application_1/routing/app_router.dart';
 import 'package:flutter_application_1/utils/app_bloc_observer.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:uni_links/uni_links.dart';
 
 final getIt = GetIt.instance;
 
@@ -37,29 +39,34 @@ class _MyAppState extends State<MyApp> {
   }
 
   void initUniLinks() async {
+    final appLinks = AppLinks();
     try {
-      final initialLink = await getInitialLink();
+      final initialLink = await appLinks.getInitialLink();
       _handleDeepLink(initialLink);
     } catch (e) {
       // handle error
     }
 
-    linkStream.listen((String? link) {
+    appLinks.uriLinkStream.listen((Uri? link) {
       _handleDeepLink(link);
     });
   }
 
-  void _handleDeepLink(String? link) {
-    if (link == null) return;
+  void _handleDeepLink(Uri? uri) {
+    if (uri == null) return;
 
-    final uri = Uri.parse(link);
-    if (uri.scheme == 'myapp' && uri.host == 'open') {
+    log(uri.toString(), name: 'Deep Link');
+
+    if (uri.scheme == 'myapp' && uri.host == 'open.my.app') {
       final jobId = int.tryParse(uri.queryParameters['jobId'] ?? '');
+      final tenantId = uri.queryParameters['tenantId'] ?? '';
       if (jobId != null) {
         // Dùng navigatorKey.currentContext điều hướng với go_router
         final context = navigatorKey.currentContext;
         if (context != null) {
-          GoRouter.of(context).go('/rams-documents/$jobId');
+          GoRouter.of(
+            context,
+          ).go('/rams-documents/$jobId', extra: {'tenantId': tenantId});
         }
         if (kDebugMode) {
           print('Received jobId: $jobId');

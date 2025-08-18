@@ -10,7 +10,8 @@ class FileSaver {
     try {
       // Xin quyền storage (chỉ cần cho Android < 10)
       if (Platform.isAndroid) {
-        var status = await Permission.storage.request();
+        await checkAndRequestStoragePermission();
+        final status = await Permission.storage.request();
         if (!status.isGranted) {
           throw Exception("Permission denied");
         }
@@ -42,5 +43,33 @@ class FileSaver {
   /// Mở file sau khi tải về
   static Future<void> openFile(String path) async {
     await OpenFilex.open(path);
+  }
+
+  static Future<void> checkAndRequestStoragePermission() async {
+    if (Platform.isAndroid) {
+      // Android 11 (API 30) trở lên cần MANAGE_EXTERNAL_STORAGE
+      if (Platform.operatingSystemVersion.contains("API 30") ||
+          Platform.operatingSystemVersion.contains("API 31") ||
+          Platform.operatingSystemVersion.contains("API 32") ||
+          Platform.operatingSystemVersion.contains("API 33") ||
+          Platform.operatingSystemVersion.contains("API 34")) {
+        final status = await Permission.manageExternalStorage.status;
+        if (!status.isGranted) {
+          final result = await Permission.manageExternalStorage.request();
+          if (!result.isGranted) {
+            throw Exception("Permission denied: MANAGE_EXTERNAL_STORAGE");
+          }
+        }
+      } else {
+        // Android 10 trở xuống → dùng Permission.storage
+        final status = await Permission.storage.status;
+        if (!status.isGranted) {
+          final result = await Permission.storage.request();
+          if (!result.isGranted) {
+            throw Exception("Permission denied: STORAGE");
+          }
+        }
+      }
+    }
   }
 }

@@ -88,13 +88,21 @@ class PdfViewerBloc extends Bloc<PdfViewerEvent, PdfViewerState> {
       _downloader.configure(documents: [event.document]);
 
       await _downloader.startDownloads();
-
-      emit(
-        state.copyWith(
-          status: PdfViewerStatus.ready,
-          filePath: event.document.localFilePath,
-        ),
-      );
+      if (event.document.localFilePath != null) {
+        emit(
+          state.copyWith(
+            status: PdfViewerStatus.ready,
+            filePath: event.document.localFilePath,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            status: PdfViewerStatus.missing,
+            error: 'File not found',
+          ),
+        );
+      }
     } catch (e) {
       emit(
         state.copyWith(status: PdfViewerStatus.missing, error: e.toString()),

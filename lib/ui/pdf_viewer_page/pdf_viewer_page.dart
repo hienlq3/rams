@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/main.dart';
@@ -17,29 +19,9 @@ class PDFViewerPage extends StatefulWidget {
 }
 
 class _PDFViewerPageState extends State<PDFViewerPage> {
-  // Future<void> _retryDownload() async {
-  //   setState(() {
-  //     _downloading = true;
-  //     _fileMissing = false;
-  //   });
-
-  //   try {
-  //     // TODO: Gọi API tải file, ví dụ:
-  //     // final newPath = await DocumentsService.downloadAndSave(widget.document.id);
-  //     await Future.delayed(Duration(seconds: 2)); // fake download
-  //     // Giả sử tải xong và cập nhật localFilePath
-  //     // widget.document.localFilePath = newPath;
-
-  //     await _checkIfFileIsReady();
-  //   } catch (e) {
-  //     setState(() => _fileMissing = true);
-  //   } finally {
-  //     setState(() => _downloading = false);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
+    log(widget.document.toString(), name: 'PDFViewerPage');
     return BlocProvider(
       create:
           (context) => PdfViewerBloc(
@@ -73,8 +55,11 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoRow('JOB NO: ', 'JL000345'),
-          _buildInfoRow('VISIT ID: ', '5678924'),
+          _buildInfoRow(
+            'JOB NO: ',
+            widget.document.jobId?.toString() ?? 'Unknown',
+          ),
+          // _buildInfoRow('VISIT ID: ', widget.document.visitId ?? 'Unknown'),
         ],
       ),
     );

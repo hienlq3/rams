@@ -6,15 +6,18 @@ import 'package:go_router/go_router.dart';
 abstract class AppRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/rams-documents/1',
+    initialLocation: '/home',
     routes: [
       GoRoute(
         path: '/rams-documents/:jobId',
         builder: (context, state) {
-          // final jobId = int.tryParse(state.pathParameters['jobId'] ?? '');
+          final jobId = int.tryParse(state.pathParameters['jobId'] ?? '');
+          final tenantId =
+              (state.extra is Map ? (state.extra as Map)['tenantId'] : '') ??
+              '';
           return RamsDocumentsPage(
-            jobId: 1002,
-            tenantId: '52642a7d-e51b-47c7-bd95-1bd48966c8c6',
+            jobId: jobId,
+            tenantId: tenantId,
             // engineerId: 3351635,
             // showOnVisitStatusList: 'Optional',
             // engineerReadStatus: 0,
