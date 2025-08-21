@@ -14,32 +14,49 @@ class PdfViewerBloc extends Bloc<PdfViewerEvent, PdfViewerState> {
   final DocumentLocalRepository documentLocalRepository;
   late FileDownloader _downloader;
   final Dio dio;
+  final DocumentItemModel? document;
 
-  PdfViewerBloc({required this.documentLocalRepository, required this.dio})
-    : super(const PdfViewerState()) {
+  PdfViewerBloc({
+    required this.documentLocalRepository,
+    required this.dio,
+    required this.document,
+  }) : super(const PdfViewerState()) {
     on<LoadPdfFromDb>(_onLoadPdfFromDb);
     on<SavePdfLocalPath>(_onSavePdfLocalPath);
     on<PdfViewerRetryDownload>(_onRetryDownload);
-    on<PdfViewerDownloadCompleted>((event, emit) async {
-      final doc = await documentLocalRepository.loadDocumentById(
+    on<PdfViewerDownloadCompleted>(_onDownloadCompleted);
+    on<AcknowledgeDocument>(_onAcknowledgeDocument);
+  }
+
+  Future<void> _onDownloadCompleted(
+    PdfViewerDownloadCompleted event,
+    Emitter<PdfViewerState> emit,
+  ) async {
+    final doc = await documentLocalRepository.loadDocumentById(
+      event.documentId,
+    );
+    if ((await doc?.hasLocalFile) == true) {
+      // cập nhật acknowledged luôn
+      await documentLocalRepository.updateAcknowledgement(
         event.documentId,
+        true,
       );
-      if ((await doc?.hasLocalFile) == true) {
-        emit(
-          state.copyWith(
-            status: PdfViewerStatus.ready,
-            filePath: doc?.localFilePath,
-          ),
-        );
-      } else {
-        emit(
-          state.copyWith(
-            status: PdfViewerStatus.missing,
-            error: event.error ?? 'File not found',
-          ),
-        );
-      }
-    });
+
+      emit(
+        state.copyWith(
+          status: PdfViewerStatus.ready,
+          filePath: doc?.localFilePath,
+          document: doc,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: PdfViewerStatus.missing,
+          error: event.error ?? 'File not found',
+        ),
+      );
+    }
   }
 
   Future<void> _onLoadPdfFromDb(
@@ -52,7 +69,7 @@ class PdfViewerBloc extends Bloc<PdfViewerEvent, PdfViewerState> {
         event.documentId,
       );
       await _checkIfFileIsReady(localFilePath: doc?.localFilePath, emit: emit);
-      emit(state.copyWith(filePath: doc?.localFilePath));
+      emit(state.copyWith(filePath: doc?.localFilePath, document: doc));
     } catch (e) {
       emit(
         state.copyWith(status: PdfViewerStatus.missing, error: e.toString()),
@@ -122,6 +139,21 @@ class PdfViewerBloc extends Bloc<PdfViewerEvent, PdfViewerState> {
       emit(
         state.copyWith(status: PdfViewerStatus.missing, error: e.toString()),
       );
+    }
+  }
+
+  Future<void> _onAcknowledgeDocument(
+    AcknowledgeDocument event,
+    Emitter<PdfViewerState> emit,
+  ) async {
+    try {
+      await documentLocalRepository.updateAcknowledgement(
+        event.documentId,
+        true,
+      );
+      emit(state.copyWith(status: PdfViewerStatus.ready));
+    } catch (e) {
+      emit(state.copyWith(error: e.toString()));
     }
   }
 }

@@ -53,7 +53,9 @@ class RamsDocumentsBloc extends Bloc<RamsDocumentsEvent, RamsDocumentsState> {
     DocumentsFetched event,
     Emitter<RamsDocumentsState> emit,
   ) async {
-    emit(state.copyWith(status: RamsDocumentsStatus.loading));
+    if (state.status == RamsDocumentsStatus.initial) {
+      emit(state.copyWith(status: RamsDocumentsStatus.loading));
+    }
 
     final connectivityResult = await Connectivity().checkConnectivity();
     final hasInternet = !connectivityResult.contains(ConnectivityResult.none);

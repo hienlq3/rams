@@ -40,3 +40,11 @@ class PdfViewerDownloadCompleted extends PdfViewerEvent {
   @override
   List<Object?> get props => [documentId, error];
 }
+
+class AcknowledgeDocument extends PdfViewerEvent {
+  final int documentId;
+  const AcknowledgeDocument(this.documentId);
+
+  @override
+  List<Object?> get props => [documentId];
+}

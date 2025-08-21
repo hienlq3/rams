@@ -128,4 +128,17 @@ class DocumentLocalRepository {
       whereArgs: [doc.id],
     );
   }
+
+  Future<void> updateAcknowledgement(int documentId, bool acknowledged) async {
+    final db = await _openDB();
+    await db.update(
+      'documents',
+      {
+        'is_acknowledged': acknowledged ? 1 : 0,
+        'updated_date_time': DateTime.now().toIso8601String(),
+      },
+      where: 'id = ?',
+      whereArgs: [documentId],
+    );
+  }
 }
