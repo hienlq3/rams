@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DocumentItemModel {
 
-@JsonKey(name: 'document_name') String? get documentName;@JsonKey(name: 'job_id') int? get jobId;@JsonKey(name: 'is_engineer_ack_required') bool? get isEngineerAckRequired;@JsonKey(name: 'attach_type') int? get attachType;@JsonKey(name: 'file_reference') String? get fileReference;@JsonKey(name: 'source_rule_document_id') int? get sourceRuleDocumentId;@JsonKey(name: 'applied_rule_id') int? get appliedRuleId;@JsonKey(name: 'show_on_visit_status_list') String? get showOnVisitStatusList;@JsonKey(name: 'engineer_read_status') int? get engineerReadStatus; int? get id;@JsonKey(name: 'tenant_id') String? get tenantId;@JsonKey(name: 'created_date_time') String? get createdDateTime;@JsonKey(name: 'updated_date_time') String? get updatedDateTime;@JsonKey(name: 'is_acknowledged') bool? get isAcknowledged; String? get localFilePath;
+@JsonKey(name: 'document_name') String? get documentName;@JsonKey(name: 'job_id') int? get jobId;@JsonKey(name: 'is_engineer_ack_required') bool? get isEngineerAckRequired;@JsonKey(name: 'attach_type') int? get attachType;@JsonKey(name: 'file_reference') String get fileReference;@JsonKey(name: 'source_rule_document_id') int? get sourceRuleDocumentId;@JsonKey(name: 'applied_rule_id') int? get appliedRuleId;@JsonKey(name: 'show_on_visit_status_list') String? get showOnVisitStatusList;@JsonKey(name: 'engineer_read_status') int? get engineerReadStatus; int? get id;@JsonKey(name: 'tenant_id') String? get tenantId;@JsonKey(name: 'created_date_time') String? get createdDateTime;@JsonKey(name: 'updated_date_time') String? get updatedDateTime;@JsonKey(name: 'is_acknowledged') bool? get isAcknowledged; String get localFilePath;
 /// Create a copy of DocumentItemModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $DocumentItemModelCopyWith<$Res>  {
   factory $DocumentItemModelCopyWith(DocumentItemModel value, $Res Function(DocumentItemModel) _then) = _$DocumentItemModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'document_name') String? documentName,@JsonKey(name: 'job_id') int? jobId,@JsonKey(name: 'is_engineer_ack_required') bool? isEngineerAckRequired,@JsonKey(name: 'attach_type') int? attachType,@JsonKey(name: 'file_reference') String? fileReference,@JsonKey(name: 'source_rule_document_id') int? sourceRuleDocumentId,@JsonKey(name: 'applied_rule_id') int? appliedRuleId,@JsonKey(name: 'show_on_visit_status_list') String? showOnVisitStatusList,@JsonKey(name: 'engineer_read_status') int? engineerReadStatus, int? id,@JsonKey(name: 'tenant_id') String? tenantId,@JsonKey(name: 'created_date_time') String? createdDateTime,@JsonKey(name: 'updated_date_time') String? updatedDateTime,@JsonKey(name: 'is_acknowledged') bool? isAcknowledged, String? localFilePath
+@JsonKey(name: 'document_name') String? documentName,@JsonKey(name: 'job_id') int? jobId,@JsonKey(name: 'is_engineer_ack_required') bool? isEngineerAckRequired,@JsonKey(name: 'attach_type') int? attachType,@JsonKey(name: 'file_reference') String fileReference,@JsonKey(name: 'source_rule_document_id') int? sourceRuleDocumentId,@JsonKey(name: 'applied_rule_id') int? appliedRuleId,@JsonKey(name: 'show_on_visit_status_list') String? showOnVisitStatusList,@JsonKey(name: 'engineer_read_status') int? engineerReadStatus, int? id,@JsonKey(name: 'tenant_id') String? tenantId,@JsonKey(name: 'created_date_time') String? createdDateTime,@JsonKey(name: 'updated_date_time') String? updatedDateTime,@JsonKey(name: 'is_acknowledged') bool? isAcknowledged, String localFilePath
 });
 
 
@@ -65,14 +65,14 @@ class _$DocumentItemModelCopyWithImpl<$Res>
 
 /// Create a copy of DocumentItemModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? documentName = freezed,Object? jobId = freezed,Object? isEngineerAckRequired = freezed,Object? attachType = freezed,Object? fileReference = freezed,Object? sourceRuleDocumentId = freezed,Object? appliedRuleId = freezed,Object? showOnVisitStatusList = freezed,Object? engineerReadStatus = freezed,Object? id = freezed,Object? tenantId = freezed,Object? createdDateTime = freezed,Object? updatedDateTime = freezed,Object? isAcknowledged = freezed,Object? localFilePath = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? documentName = freezed,Object? jobId = freezed,Object? isEngineerAckRequired = freezed,Object? attachType = freezed,Object? fileReference = null,Object? sourceRuleDocumentId = freezed,Object? appliedRuleId = freezed,Object? showOnVisitStatusList = freezed,Object? engineerReadStatus = freezed,Object? id = freezed,Object? tenantId = freezed,Object? createdDateTime = freezed,Object? updatedDateTime = freezed,Object? isAcknowledged = freezed,Object? localFilePath = null,}) {
   return _then(_self.copyWith(
 documentName: freezed == documentName ? _self.documentName : documentName // ignore: cast_nullable_to_non_nullable
 as String?,jobId: freezed == jobId ? _self.jobId : jobId // ignore: cast_nullable_to_non_nullable
 as int?,isEngineerAckRequired: freezed == isEngineerAckRequired ? _self.isEngineerAckRequired : isEngineerAckRequired // ignore: cast_nullable_to_non_nullable
 as bool?,attachType: freezed == attachType ? _self.attachType : attachType // ignore: cast_nullable_to_non_nullable
-as int?,fileReference: freezed == fileReference ? _self.fileReference : fileReference // ignore: cast_nullable_to_non_nullable
-as String?,sourceRuleDocumentId: freezed == sourceRuleDocumentId ? _self.sourceRuleDocumentId : sourceRuleDocumentId // ignore: cast_nullable_to_non_nullable
+as int?,fileReference: null == fileReference ? _self.fileReference : fileReference // ignore: cast_nullable_to_non_nullable
+as String,sourceRuleDocumentId: freezed == sourceRuleDocumentId ? _self.sourceRuleDocumentId : sourceRuleDocumentId // ignore: cast_nullable_to_non_nullable
 as int?,appliedRuleId: freezed == appliedRuleId ? _self.appliedRuleId : appliedRuleId // ignore: cast_nullable_to_non_nullable
 as int?,showOnVisitStatusList: freezed == showOnVisitStatusList ? _self.showOnVisitStatusList : showOnVisitStatusList // ignore: cast_nullable_to_non_nullable
 as String?,engineerReadStatus: freezed == engineerReadStatus ? _self.engineerReadStatus : engineerReadStatus // ignore: cast_nullable_to_non_nullable
@@ -81,8 +81,8 @@ as int?,tenantId: freezed == tenantId ? _self.tenantId : tenantId // ignore: cas
 as String?,createdDateTime: freezed == createdDateTime ? _self.createdDateTime : createdDateTime // ignore: cast_nullable_to_non_nullable
 as String?,updatedDateTime: freezed == updatedDateTime ? _self.updatedDateTime : updatedDateTime // ignore: cast_nullable_to_non_nullable
 as String?,isAcknowledged: freezed == isAcknowledged ? _self.isAcknowledged : isAcknowledged // ignore: cast_nullable_to_non_nullable
-as bool?,localFilePath: freezed == localFilePath ? _self.localFilePath : localFilePath // ignore: cast_nullable_to_non_nullable
-as String?,
+as bool?,localFilePath: null == localFilePath ? _self.localFilePath : localFilePath // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -167,7 +167,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'document_name')  String? documentName, @JsonKey(name: 'job_id')  int? jobId, @JsonKey(name: 'is_engineer_ack_required')  bool? isEngineerAckRequired, @JsonKey(name: 'attach_type')  int? attachType, @JsonKey(name: 'file_reference')  String? fileReference, @JsonKey(name: 'source_rule_document_id')  int? sourceRuleDocumentId, @JsonKey(name: 'applied_rule_id')  int? appliedRuleId, @JsonKey(name: 'show_on_visit_status_list')  String? showOnVisitStatusList, @JsonKey(name: 'engineer_read_status')  int? engineerReadStatus,  int? id, @JsonKey(name: 'tenant_id')  String? tenantId, @JsonKey(name: 'created_date_time')  String? createdDateTime, @JsonKey(name: 'updated_date_time')  String? updatedDateTime, @JsonKey(name: 'is_acknowledged')  bool? isAcknowledged,  String? localFilePath)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'document_name')  String? documentName, @JsonKey(name: 'job_id')  int? jobId, @JsonKey(name: 'is_engineer_ack_required')  bool? isEngineerAckRequired, @JsonKey(name: 'attach_type')  int? attachType, @JsonKey(name: 'file_reference')  String fileReference, @JsonKey(name: 'source_rule_document_id')  int? sourceRuleDocumentId, @JsonKey(name: 'applied_rule_id')  int? appliedRuleId, @JsonKey(name: 'show_on_visit_status_list')  String? showOnVisitStatusList, @JsonKey(name: 'engineer_read_status')  int? engineerReadStatus,  int? id, @JsonKey(name: 'tenant_id')  String? tenantId, @JsonKey(name: 'created_date_time')  String? createdDateTime, @JsonKey(name: 'updated_date_time')  String? updatedDateTime, @JsonKey(name: 'is_acknowledged')  bool? isAcknowledged,  String localFilePath)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DocumentItemModel() when $default != null:
 return $default(_that.documentName,_that.jobId,_that.isEngineerAckRequired,_that.attachType,_that.fileReference,_that.sourceRuleDocumentId,_that.appliedRuleId,_that.showOnVisitStatusList,_that.engineerReadStatus,_that.id,_that.tenantId,_that.createdDateTime,_that.updatedDateTime,_that.isAcknowledged,_that.localFilePath);case _:
@@ -188,7 +188,7 @@ return $default(_that.documentName,_that.jobId,_that.isEngineerAckRequired,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'document_name')  String? documentName, @JsonKey(name: 'job_id')  int? jobId, @JsonKey(name: 'is_engineer_ack_required')  bool? isEngineerAckRequired, @JsonKey(name: 'attach_type')  int? attachType, @JsonKey(name: 'file_reference')  String? fileReference, @JsonKey(name: 'source_rule_document_id')  int? sourceRuleDocumentId, @JsonKey(name: 'applied_rule_id')  int? appliedRuleId, @JsonKey(name: 'show_on_visit_status_list')  String? showOnVisitStatusList, @JsonKey(name: 'engineer_read_status')  int? engineerReadStatus,  int? id, @JsonKey(name: 'tenant_id')  String? tenantId, @JsonKey(name: 'created_date_time')  String? createdDateTime, @JsonKey(name: 'updated_date_time')  String? updatedDateTime, @JsonKey(name: 'is_acknowledged')  bool? isAcknowledged,  String? localFilePath)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'document_name')  String? documentName, @JsonKey(name: 'job_id')  int? jobId, @JsonKey(name: 'is_engineer_ack_required')  bool? isEngineerAckRequired, @JsonKey(name: 'attach_type')  int? attachType, @JsonKey(name: 'file_reference')  String fileReference, @JsonKey(name: 'source_rule_document_id')  int? sourceRuleDocumentId, @JsonKey(name: 'applied_rule_id')  int? appliedRuleId, @JsonKey(name: 'show_on_visit_status_list')  String? showOnVisitStatusList, @JsonKey(name: 'engineer_read_status')  int? engineerReadStatus,  int? id, @JsonKey(name: 'tenant_id')  String? tenantId, @JsonKey(name: 'created_date_time')  String? createdDateTime, @JsonKey(name: 'updated_date_time')  String? updatedDateTime, @JsonKey(name: 'is_acknowledged')  bool? isAcknowledged,  String localFilePath)  $default,) {final _that = this;
 switch (_that) {
 case _DocumentItemModel():
 return $default(_that.documentName,_that.jobId,_that.isEngineerAckRequired,_that.attachType,_that.fileReference,_that.sourceRuleDocumentId,_that.appliedRuleId,_that.showOnVisitStatusList,_that.engineerReadStatus,_that.id,_that.tenantId,_that.createdDateTime,_that.updatedDateTime,_that.isAcknowledged,_that.localFilePath);case _:
@@ -208,7 +208,7 @@ return $default(_that.documentName,_that.jobId,_that.isEngineerAckRequired,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'document_name')  String? documentName, @JsonKey(name: 'job_id')  int? jobId, @JsonKey(name: 'is_engineer_ack_required')  bool? isEngineerAckRequired, @JsonKey(name: 'attach_type')  int? attachType, @JsonKey(name: 'file_reference')  String? fileReference, @JsonKey(name: 'source_rule_document_id')  int? sourceRuleDocumentId, @JsonKey(name: 'applied_rule_id')  int? appliedRuleId, @JsonKey(name: 'show_on_visit_status_list')  String? showOnVisitStatusList, @JsonKey(name: 'engineer_read_status')  int? engineerReadStatus,  int? id, @JsonKey(name: 'tenant_id')  String? tenantId, @JsonKey(name: 'created_date_time')  String? createdDateTime, @JsonKey(name: 'updated_date_time')  String? updatedDateTime, @JsonKey(name: 'is_acknowledged')  bool? isAcknowledged,  String? localFilePath)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'document_name')  String? documentName, @JsonKey(name: 'job_id')  int? jobId, @JsonKey(name: 'is_engineer_ack_required')  bool? isEngineerAckRequired, @JsonKey(name: 'attach_type')  int? attachType, @JsonKey(name: 'file_reference')  String fileReference, @JsonKey(name: 'source_rule_document_id')  int? sourceRuleDocumentId, @JsonKey(name: 'applied_rule_id')  int? appliedRuleId, @JsonKey(name: 'show_on_visit_status_list')  String? showOnVisitStatusList, @JsonKey(name: 'engineer_read_status')  int? engineerReadStatus,  int? id, @JsonKey(name: 'tenant_id')  String? tenantId, @JsonKey(name: 'created_date_time')  String? createdDateTime, @JsonKey(name: 'updated_date_time')  String? updatedDateTime, @JsonKey(name: 'is_acknowledged')  bool? isAcknowledged,  String localFilePath)?  $default,) {final _that = this;
 switch (_that) {
 case _DocumentItemModel() when $default != null:
 return $default(_that.documentName,_that.jobId,_that.isEngineerAckRequired,_that.attachType,_that.fileReference,_that.sourceRuleDocumentId,_that.appliedRuleId,_that.showOnVisitStatusList,_that.engineerReadStatus,_that.id,_that.tenantId,_that.createdDateTime,_that.updatedDateTime,_that.isAcknowledged,_that.localFilePath);case _:
@@ -223,14 +223,14 @@ return $default(_that.documentName,_that.jobId,_that.isEngineerAckRequired,_that
 @JsonSerializable()
 
 class _DocumentItemModel implements DocumentItemModel {
-  const _DocumentItemModel({@JsonKey(name: 'document_name') this.documentName, @JsonKey(name: 'job_id') this.jobId, @JsonKey(name: 'is_engineer_ack_required') this.isEngineerAckRequired, @JsonKey(name: 'attach_type') this.attachType, @JsonKey(name: 'file_reference') this.fileReference, @JsonKey(name: 'source_rule_document_id') this.sourceRuleDocumentId, @JsonKey(name: 'applied_rule_id') this.appliedRuleId, @JsonKey(name: 'show_on_visit_status_list') this.showOnVisitStatusList, @JsonKey(name: 'engineer_read_status') this.engineerReadStatus, this.id, @JsonKey(name: 'tenant_id') this.tenantId, @JsonKey(name: 'created_date_time') this.createdDateTime, @JsonKey(name: 'updated_date_time') this.updatedDateTime, @JsonKey(name: 'is_acknowledged') this.isAcknowledged, this.localFilePath});
+  const _DocumentItemModel({@JsonKey(name: 'document_name') this.documentName, @JsonKey(name: 'job_id') this.jobId, @JsonKey(name: 'is_engineer_ack_required') this.isEngineerAckRequired, @JsonKey(name: 'attach_type') this.attachType, @JsonKey(name: 'file_reference') this.fileReference = '', @JsonKey(name: 'source_rule_document_id') this.sourceRuleDocumentId, @JsonKey(name: 'applied_rule_id') this.appliedRuleId, @JsonKey(name: 'show_on_visit_status_list') this.showOnVisitStatusList, @JsonKey(name: 'engineer_read_status') this.engineerReadStatus, this.id, @JsonKey(name: 'tenant_id') this.tenantId, @JsonKey(name: 'created_date_time') this.createdDateTime, @JsonKey(name: 'updated_date_time') this.updatedDateTime, @JsonKey(name: 'is_acknowledged') this.isAcknowledged, this.localFilePath = ''});
   factory _DocumentItemModel.fromJson(Map<String, dynamic> json) => _$DocumentItemModelFromJson(json);
 
 @override@JsonKey(name: 'document_name') final  String? documentName;
 @override@JsonKey(name: 'job_id') final  int? jobId;
 @override@JsonKey(name: 'is_engineer_ack_required') final  bool? isEngineerAckRequired;
 @override@JsonKey(name: 'attach_type') final  int? attachType;
-@override@JsonKey(name: 'file_reference') final  String? fileReference;
+@override@JsonKey(name: 'file_reference') final  String fileReference;
 @override@JsonKey(name: 'source_rule_document_id') final  int? sourceRuleDocumentId;
 @override@JsonKey(name: 'applied_rule_id') final  int? appliedRuleId;
 @override@JsonKey(name: 'show_on_visit_status_list') final  String? showOnVisitStatusList;
@@ -240,7 +240,7 @@ class _DocumentItemModel implements DocumentItemModel {
 @override@JsonKey(name: 'created_date_time') final  String? createdDateTime;
 @override@JsonKey(name: 'updated_date_time') final  String? updatedDateTime;
 @override@JsonKey(name: 'is_acknowledged') final  bool? isAcknowledged;
-@override final  String? localFilePath;
+@override@JsonKey() final  String localFilePath;
 
 /// Create a copy of DocumentItemModel
 /// with the given fields replaced by the non-null parameter values.
@@ -275,7 +275,7 @@ abstract mixin class _$DocumentItemModelCopyWith<$Res> implements $DocumentItemM
   factory _$DocumentItemModelCopyWith(_DocumentItemModel value, $Res Function(_DocumentItemModel) _then) = __$DocumentItemModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'document_name') String? documentName,@JsonKey(name: 'job_id') int? jobId,@JsonKey(name: 'is_engineer_ack_required') bool? isEngineerAckRequired,@JsonKey(name: 'attach_type') int? attachType,@JsonKey(name: 'file_reference') String? fileReference,@JsonKey(name: 'source_rule_document_id') int? sourceRuleDocumentId,@JsonKey(name: 'applied_rule_id') int? appliedRuleId,@JsonKey(name: 'show_on_visit_status_list') String? showOnVisitStatusList,@JsonKey(name: 'engineer_read_status') int? engineerReadStatus, int? id,@JsonKey(name: 'tenant_id') String? tenantId,@JsonKey(name: 'created_date_time') String? createdDateTime,@JsonKey(name: 'updated_date_time') String? updatedDateTime,@JsonKey(name: 'is_acknowledged') bool? isAcknowledged, String? localFilePath
+@JsonKey(name: 'document_name') String? documentName,@JsonKey(name: 'job_id') int? jobId,@JsonKey(name: 'is_engineer_ack_required') bool? isEngineerAckRequired,@JsonKey(name: 'attach_type') int? attachType,@JsonKey(name: 'file_reference') String fileReference,@JsonKey(name: 'source_rule_document_id') int? sourceRuleDocumentId,@JsonKey(name: 'applied_rule_id') int? appliedRuleId,@JsonKey(name: 'show_on_visit_status_list') String? showOnVisitStatusList,@JsonKey(name: 'engineer_read_status') int? engineerReadStatus, int? id,@JsonKey(name: 'tenant_id') String? tenantId,@JsonKey(name: 'created_date_time') String? createdDateTime,@JsonKey(name: 'updated_date_time') String? updatedDateTime,@JsonKey(name: 'is_acknowledged') bool? isAcknowledged, String localFilePath
 });
 
 
@@ -292,14 +292,14 @@ class __$DocumentItemModelCopyWithImpl<$Res>
 
 /// Create a copy of DocumentItemModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? documentName = freezed,Object? jobId = freezed,Object? isEngineerAckRequired = freezed,Object? attachType = freezed,Object? fileReference = freezed,Object? sourceRuleDocumentId = freezed,Object? appliedRuleId = freezed,Object? showOnVisitStatusList = freezed,Object? engineerReadStatus = freezed,Object? id = freezed,Object? tenantId = freezed,Object? createdDateTime = freezed,Object? updatedDateTime = freezed,Object? isAcknowledged = freezed,Object? localFilePath = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? documentName = freezed,Object? jobId = freezed,Object? isEngineerAckRequired = freezed,Object? attachType = freezed,Object? fileReference = null,Object? sourceRuleDocumentId = freezed,Object? appliedRuleId = freezed,Object? showOnVisitStatusList = freezed,Object? engineerReadStatus = freezed,Object? id = freezed,Object? tenantId = freezed,Object? createdDateTime = freezed,Object? updatedDateTime = freezed,Object? isAcknowledged = freezed,Object? localFilePath = null,}) {
   return _then(_DocumentItemModel(
 documentName: freezed == documentName ? _self.documentName : documentName // ignore: cast_nullable_to_non_nullable
 as String?,jobId: freezed == jobId ? _self.jobId : jobId // ignore: cast_nullable_to_non_nullable
 as int?,isEngineerAckRequired: freezed == isEngineerAckRequired ? _self.isEngineerAckRequired : isEngineerAckRequired // ignore: cast_nullable_to_non_nullable
 as bool?,attachType: freezed == attachType ? _self.attachType : attachType // ignore: cast_nullable_to_non_nullable
-as int?,fileReference: freezed == fileReference ? _self.fileReference : fileReference // ignore: cast_nullable_to_non_nullable
-as String?,sourceRuleDocumentId: freezed == sourceRuleDocumentId ? _self.sourceRuleDocumentId : sourceRuleDocumentId // ignore: cast_nullable_to_non_nullable
+as int?,fileReference: null == fileReference ? _self.fileReference : fileReference // ignore: cast_nullable_to_non_nullable
+as String,sourceRuleDocumentId: freezed == sourceRuleDocumentId ? _self.sourceRuleDocumentId : sourceRuleDocumentId // ignore: cast_nullable_to_non_nullable
 as int?,appliedRuleId: freezed == appliedRuleId ? _self.appliedRuleId : appliedRuleId // ignore: cast_nullable_to_non_nullable
 as int?,showOnVisitStatusList: freezed == showOnVisitStatusList ? _self.showOnVisitStatusList : showOnVisitStatusList // ignore: cast_nullable_to_non_nullable
 as String?,engineerReadStatus: freezed == engineerReadStatus ? _self.engineerReadStatus : engineerReadStatus // ignore: cast_nullable_to_non_nullable
@@ -308,8 +308,8 @@ as int?,tenantId: freezed == tenantId ? _self.tenantId : tenantId // ignore: cas
 as String?,createdDateTime: freezed == createdDateTime ? _self.createdDateTime : createdDateTime // ignore: cast_nullable_to_non_nullable
 as String?,updatedDateTime: freezed == updatedDateTime ? _self.updatedDateTime : updatedDateTime // ignore: cast_nullable_to_non_nullable
 as String?,isAcknowledged: freezed == isAcknowledged ? _self.isAcknowledged : isAcknowledged // ignore: cast_nullable_to_non_nullable
-as bool?,localFilePath: freezed == localFilePath ? _self.localFilePath : localFilePath // ignore: cast_nullable_to_non_nullable
-as String?,
+as bool?,localFilePath: null == localFilePath ? _self.localFilePath : localFilePath // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

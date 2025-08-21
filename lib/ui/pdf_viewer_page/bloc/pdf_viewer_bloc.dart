@@ -20,6 +20,26 @@ class PdfViewerBloc extends Bloc<PdfViewerEvent, PdfViewerState> {
     on<LoadPdfFromDb>(_onLoadPdfFromDb);
     on<SavePdfLocalPath>(_onSavePdfLocalPath);
     on<PdfViewerRetryDownload>(_onRetryDownload);
+    on<PdfViewerDownloadCompleted>((event, emit) async {
+      final doc = await documentLocalRepository.loadDocumentById(
+        event.documentId,
+      );
+      if ((await doc?.hasLocalFile) == true) {
+        emit(
+          state.copyWith(
+            status: PdfViewerStatus.ready,
+            filePath: doc?.localFilePath,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            status: PdfViewerStatus.missing,
+            error: event.error ?? 'File not found',
+          ),
+        );
+      }
+    });
   }
 
   Future<void> _onLoadPdfFromDb(
@@ -80,29 +100,24 @@ class PdfViewerBloc extends Bloc<PdfViewerEvent, PdfViewerState> {
   ) async {
     emit(state.copyWith(status: PdfViewerStatus.loading, error: null));
     try {
+      final document = event.document;
       _downloader = FileDownloader(
         dio: dio,
         documentLocalRepository: documentLocalRepository,
       );
 
-      _downloader.configure(documents: [event.document]);
+      _downloader.configure(
+        documents: [document],
+        onProgress: (id, progress, {error}) {
+          if (progress == 1.0) {
+            add(PdfViewerDownloadCompleted(document.id ?? -1));
+          } else if (progress == -1.0) {
+            add(PdfViewerDownloadCompleted(document.id ?? -1, error: error));
+          }
+        },
+      );
 
       await _downloader.startDownloads();
-      if (event.document.localFilePath != null) {
-        emit(
-          state.copyWith(
-            status: PdfViewerStatus.ready,
-            filePath: event.document.localFilePath,
-          ),
-        );
-      } else {
-        emit(
-          state.copyWith(
-            status: PdfViewerStatus.missing,
-            error: 'File not found',
-          ),
-        );
-      }
     } catch (e) {
       emit(
         state.copyWith(status: PdfViewerStatus.missing, error: e.toString()),

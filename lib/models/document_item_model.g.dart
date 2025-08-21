@@ -12,7 +12,7 @@ _DocumentItemModel _$DocumentItemModelFromJson(Map<String, dynamic> json) =>
       jobId: (json['job_id'] as num?)?.toInt(),
       isEngineerAckRequired: json['is_engineer_ack_required'] as bool?,
       attachType: (json['attach_type'] as num?)?.toInt(),
-      fileReference: json['file_reference'] as String?,
+      fileReference: json['file_reference'] as String? ?? '',
       sourceRuleDocumentId: (json['source_rule_document_id'] as num?)?.toInt(),
       appliedRuleId: (json['applied_rule_id'] as num?)?.toInt(),
       showOnVisitStatusList: json['show_on_visit_status_list'] as String?,
@@ -22,7 +22,7 @@ _DocumentItemModel _$DocumentItemModelFromJson(Map<String, dynamic> json) =>
       createdDateTime: json['created_date_time'] as String?,
       updatedDateTime: json['updated_date_time'] as String?,
       isAcknowledged: json['is_acknowledged'] as bool?,
-      localFilePath: json['localFilePath'] as String?,
+      localFilePath: json['localFilePath'] as String? ?? '',
     );
 
 Map<String, dynamic> _$DocumentItemModelToJson(_DocumentItemModel instance) =>

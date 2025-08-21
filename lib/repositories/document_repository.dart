@@ -24,9 +24,13 @@ class DocumentRepository {
         engineerReadStatus: engineerReadStatus,
       );
       if (responseJson != null) {
-        return (responseJson['items'] as List)
-            .map((doc) => DocumentItemModel.fromJson(doc))
-            .toList();
+        return (responseJson['items'] as List).map((doc) {
+          final test = DocumentItemModel.fromJson(doc).copyWith(
+            fileReference:
+                'https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf',
+          );
+          return test;
+        }).toList();
       }
       return <DocumentItemModel>[];
     } on Exception {

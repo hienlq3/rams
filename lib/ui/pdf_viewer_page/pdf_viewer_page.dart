@@ -96,7 +96,7 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("File not found"),
+                Text(state.error ?? 'File not found'),
                 const SizedBox(height: 8),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.refresh),
@@ -136,7 +136,8 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
               Expanded(
                 child: ElevatedButton(
                   onPressed:
-                      widget.document.isAcknowledged == true
+                      widget.document.isAcknowledged == true &&
+                              widget.document.hasLocalFile == Future.value(true)
                           ? null
                           : () => Navigator.pop(context),
                   child: Text('Acknowledge'),

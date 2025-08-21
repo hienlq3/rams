@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'document_item_model.freezed.dart';
@@ -12,7 +14,7 @@ abstract class DocumentItemModel with _$DocumentItemModel {
     @JsonKey(name: 'is_engineer_ack_required')
     final bool? isEngineerAckRequired,
     @JsonKey(name: 'attach_type') final int? attachType,
-    @JsonKey(name: 'file_reference') final String? fileReference,
+    @Default('') @JsonKey(name: 'file_reference') final String fileReference,
     @JsonKey(name: 'source_rule_document_id') final int? sourceRuleDocumentId,
     @JsonKey(name: 'applied_rule_id') final int? appliedRuleId,
     @JsonKey(name: 'show_on_visit_status_list')
@@ -23,7 +25,7 @@ abstract class DocumentItemModel with _$DocumentItemModel {
     @JsonKey(name: 'created_date_time') final String? createdDateTime,
     @JsonKey(name: 'updated_date_time') final String? updatedDateTime,
     @JsonKey(name: 'is_acknowledged') final bool? isAcknowledged,
-    final String? localFilePath,
+    @Default('') final String localFilePath,
   }) = _DocumentItemModel;
   factory DocumentItemModel.fromJson(Map<String, dynamic> json) =>
       _$DocumentItemModelFromJson(json);
@@ -43,5 +45,11 @@ extension DocumentItemModelDb on DocumentItemModel {
       'is_engineer_ack_required': json['is_engineer_ack_required'] == 1,
       'is_acknowledged': json['is_acknowledged'] == 1,
     });
+  }
+
+  Future<bool> get hasLocalFile async {
+    if (localFilePath.isEmpty) return false;
+    final file = File(localFilePath);
+    return await file.exists();
   }
 }

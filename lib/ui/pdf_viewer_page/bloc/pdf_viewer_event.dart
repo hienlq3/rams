@@ -31,3 +31,12 @@ class PdfViewerRetryDownload extends PdfViewerEvent {
   @override
   List<Object?> get props => [document];
 }
+
+class PdfViewerDownloadCompleted extends PdfViewerEvent {
+  final int documentId;
+  final String? error;
+  const PdfViewerDownloadCompleted(this.documentId, {this.error});
+
+  @override
+  List<Object?> get props => [documentId, error];
+}

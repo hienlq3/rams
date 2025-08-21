@@ -1,6 +1,15 @@
 part of 'rams_documents_bloc.dart';
 
-enum RamsDocumentsStatus { initial, loading, success, error, empty }
+enum RamsDocumentsStatus {
+  initial,
+  loading,
+  success,
+  error,
+  empty,
+  downloading,
+  downloadSuccess,
+  downloadError,
+}
 
 final class RamsDocumentsState extends Equatable {
   const RamsDocumentsState({

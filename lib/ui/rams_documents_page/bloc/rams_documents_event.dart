@@ -32,25 +32,20 @@ final class DocumentsFetched extends RamsDocumentsEvent {
   ];
 }
 
-class DownloadProgressUpdated extends RamsDocumentsEvent {
-  final int documentId;
-  final double progress;
+final class DocumentsDownloaded extends RamsDocumentsEvent {
+  final int? documentId;
 
-  const DownloadProgressUpdated(this.documentId, this.progress);
-
-  @override
-  List<Object> get props => [documentId, progress];
-}
-
-final class PrioritizeDocumentDownload extends RamsDocumentsEvent {
-  final int documentId;
-
-  const PrioritizeDocumentDownload(this.documentId);
+  const DocumentsDownloaded(this.documentId);
 
   @override
-  List<Object> get props => [documentId];
+  List<Object?> get props => [documentId];
 }
 
-class LoadFromLocal extends RamsDocumentsEvent {}
+class PdfViewerDownloadCompleted extends RamsDocumentsEvent {
+  final int documentId;
+  final String? error;
+  const PdfViewerDownloadCompleted(this.documentId, {this.error});
 
-class InitDocuments extends RamsDocumentsEvent {}
+  @override
+  List<Object?> get props => [documentId, error];
+}
