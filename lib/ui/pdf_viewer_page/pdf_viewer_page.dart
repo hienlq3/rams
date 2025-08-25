@@ -37,7 +37,7 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     _buildHeader(),
-                    Expanded(child: _buildPDFContent(state)),
+                    Expanded(child: _buildPDFContent(context, state)),
                   ],
                 ),
               ),
@@ -91,7 +91,7 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
     );
   }
 
-  Widget _buildPDFContent(PdfViewerState state) {
+  Widget _buildPDFContent(BuildContext context, PdfViewerState state) {
     switch (state.status) {
       case PdfViewerStatus.ready:
         return PDFView(filePath: state.filePath);
@@ -141,7 +141,9 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
                   onPressed: () => _handleClose(context, state),
                 ),
               ),
-              if (requiresAck && !isAcked) ...[
+              if (requiresAck &&
+                  !isAcked &&
+                  state.document?.hasLocalFile == Future.value(true)) ...[
                 const SizedBox(width: 10),
                 Expanded(
                   child: ElevatedButton(
@@ -167,7 +169,8 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
 
   Future<bool> _canClose(BuildContext context, PdfViewerState state) async {
     if (state.document?.isEngineerAckRequired == true &&
-        state.document?.isAcknowledged == false) {
+        state.document?.isAcknowledged == false &&
+        state.document?.hasLocalFile == Future.value(true)) {
       _showSnack(context, 'You must acknowledge this document to proceed.');
       return false;
     }

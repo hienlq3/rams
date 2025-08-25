@@ -80,7 +80,11 @@ class RamsDocumentsBloc extends Bloc<RamsDocumentsEvent, RamsDocumentsState> {
         engineerReadStatus: event.engineerReadStatus,
       );
 
-      await _syncDocumentsWithLocal(apiDocuments, event.jobId ?? -1);
+      await _syncDocumentsWithLocal(
+        apiDocuments,
+        event.jobId ?? -1,
+        event.tenantId ?? '',
+      );
 
       _downloader = FileDownloader(
         dio: dio,
@@ -105,9 +109,12 @@ class RamsDocumentsBloc extends Bloc<RamsDocumentsEvent, RamsDocumentsState> {
     Emitter<RamsDocumentsState> emit, {
     bool apiFailed = false,
   }) async {
-    final localDocuments = await documentLocalRepository.loadDocumentsByJobId(
-      event.jobId ?? -1,
-    );
+    final localDocuments = await documentLocalRepository
+        .loadDocumentsByJobIdAndTenant(event.jobId ?? -1, event.tenantId ?? '');
+
+    log('localDocuments: ${localDocuments.toString()}');
+
+    log('unsyncedDocs: ${documentLocalRepository.unsyncedDocs.toString()}');
 
     if (localDocuments.isNotEmpty) {
       emit(
@@ -132,10 +139,10 @@ class RamsDocumentsBloc extends Bloc<RamsDocumentsEvent, RamsDocumentsState> {
   Future<void> _syncDocumentsWithLocal(
     List<DocumentItemModel> apiDocuments,
     int jobId,
+    String tenantId,
   ) async {
-    final localDocuments = await documentLocalRepository.loadDocumentsByJobId(
-      jobId,
-    );
+    final localDocuments = await documentLocalRepository
+        .loadDocumentsByJobIdAndTenant(jobId, tenantId);
 
     for (final apiDoc in apiDocuments) {
       final localDoc = localDocuments.cast<DocumentItemModel?>().firstWhere(

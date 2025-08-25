@@ -110,99 +110,95 @@ class _RamsDocumentsPageState extends State<RamsDocumentsPage> {
                       itemCount: state.documents.length,
                       itemBuilder: (context, index) {
                         final DocumentItemModel doc = state.documents[index];
-                        return GestureDetector(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => PDFViewerPage(document: doc),
-                              ),
-                            );
-
-                            if (!mounted) {
-                              return; // ✅ check context trước khi gọi bloc
-                            }
-                            context.read<RamsDocumentsBloc>().add(
-                              DocumentsFetched(
-                                jobId: widget.jobId,
-                                tenantId: widget.tenantId,
-                                engineerId: widget.engineerId,
-                                showOnVisitStatusList:
-                                    widget.showOnVisitStatusList,
-                                engineerReadStatus: widget.engineerReadStatus,
-                              ),
-                            );
-                          },
-                          child: Card(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: 12.0,
-                              vertical: 6.0,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                spacing: 8.0,
-                                children: [
-                                  Icon(Icons.description, color: Colors.blue),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      doc.documentName ?? 'Unknown Document',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
+                        return Card(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 12.0,
+                            vertical: 6.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              spacing: 8.0,
+                              children: [
+                                Icon(Icons.description, color: Colors.blue),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    doc.documentName ?? 'Unknown Document',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    softWrap: false,
+                                  ),
+                                ),
+                                Text(
+                                  doc.isEngineerAckRequired == true
+                                      ? 'Yes'
+                                      : 'No',
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.task,
+                                    color:
+                                        doc.isAcknowledged == true
+                                            ? Colors.green
+                                            : Colors.transparent,
+                                  ),
+                                  padding: EdgeInsets.zero,
+                                  constraints: BoxConstraints(),
+                                  onPressed:
+                                      () => context
+                                          .read<RamsDocumentsBloc>()
+                                          .add(DocumentsDownloaded(doc.id)),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.remove_red_eye),
+                                  padding: EdgeInsets.zero,
+                                  constraints: BoxConstraints(),
+                                  onPressed: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) =>
+                                                PDFViewerPage(document: doc),
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      softWrap: false,
-                                    ),
+                                    );
+
+                                    if (!mounted) {
+                                      return; // ✅ check context trước khi gọi bloc
+                                    }
+                                    context.read<RamsDocumentsBloc>().add(
+                                      DocumentsFetched(
+                                        jobId: widget.jobId,
+                                        tenantId: widget.tenantId,
+                                        engineerId: widget.engineerId,
+                                        showOnVisitStatusList:
+                                            widget.showOnVisitStatusList,
+                                        engineerReadStatus:
+                                            widget.engineerReadStatus,
+                                      ),
+                                    );
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.download,
+                                    color: Colors.black,
                                   ),
-                                  Text(
-                                    doc.isEngineerAckRequired == true
-                                        ? 'Yes'
-                                        : 'No',
-                                  ),
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.remove_red_eye,
-                                      color:
-                                          doc.isAcknowledged == true
-                                              ? Colors.green
-                                              : Colors.black,
-                                    ),
-                                    padding: EdgeInsets.zero,
-                                    constraints: BoxConstraints(),
-                                    onPressed:
-                                        () => context
-                                            .read<RamsDocumentsBloc>()
-                                            .add(DocumentsDownloaded(doc.id)),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.download,
-                                      color: Colors.black,
-                                    ),
-                                    padding: EdgeInsets.zero,
-                                    constraints: BoxConstraints(),
-                                    onPressed:
-                                        () => context
-                                            .read<RamsDocumentsBloc>()
-                                            .add(DocumentsDownloaded(doc.id)),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.check),
-                                    padding: EdgeInsets.zero,
-                                    constraints: BoxConstraints(),
-                                    onPressed:
-                                        () => context
-                                            .read<RamsDocumentsBloc>()
-                                            .add(DocumentsDownloaded(doc.id)),
-                                  ),
-                                ],
-                              ),
+                                  padding: EdgeInsets.zero,
+                                  constraints: BoxConstraints(),
+                                  onPressed:
+                                      () => context
+                                          .read<RamsDocumentsBloc>()
+                                          .add(DocumentsDownloaded(doc.id)),
+                                ),
+                              ],
                             ),
                           ),
                         );

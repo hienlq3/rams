@@ -23,6 +23,7 @@ _DocumentItemModel _$DocumentItemModelFromJson(Map<String, dynamic> json) =>
       updatedDateTime: json['updated_date_time'] as String?,
       isAcknowledged: json['is_acknowledged'] as bool?,
       localFilePath: json['localFilePath'] as String? ?? '',
+      sync: json['sync'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$DocumentItemModelToJson(_DocumentItemModel instance) =>
@@ -42,4 +43,5 @@ Map<String, dynamic> _$DocumentItemModelToJson(_DocumentItemModel instance) =>
       'updated_date_time': instance.updatedDateTime,
       'is_acknowledged': instance.isAcknowledged,
       'localFilePath': instance.localFilePath,
+      'sync': instance.sync,
     };

@@ -26,6 +26,7 @@ abstract class DocumentItemModel with _$DocumentItemModel {
     @JsonKey(name: 'updated_date_time') final String? updatedDateTime,
     @JsonKey(name: 'is_acknowledged') final bool? isAcknowledged,
     @Default('') final String localFilePath,
+    @Default(true) final bool sync,
   }) = _DocumentItemModel;
   factory DocumentItemModel.fromJson(Map<String, dynamic> json) =>
       _$DocumentItemModelFromJson(json);

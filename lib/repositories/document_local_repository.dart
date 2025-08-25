@@ -12,6 +12,12 @@ class DocumentLocalRepository {
 
   Database? _db;
 
+  // --- Thêm biến để lưu tạm các doc cần sync ---
+  final List<DocumentItemModel> _unsyncedDocs = [];
+
+  // Getter để các class khác có thể truy cập
+  List<DocumentItemModel> get unsyncedDocs => _unsyncedDocs;
+
   /// Mở hoặc tạo database
   Future<Database> _openDB() async {
     if (_db != null) return _db!;
@@ -47,7 +53,7 @@ class DocumentLocalRepository {
         // Migration khi thêm cột mới
         if (oldVersion < 2) {
           await db.execute(
-            'ALTER TABLE documents ADD COLUMN localFilePath TEXT',
+            'ALTER TABLE documents ADD COLUMN sync INTEGER NOT NULL DEFAULT 0 ',
           );
         }
       },
@@ -109,12 +115,15 @@ class DocumentLocalRepository {
     return null; // Không tìm thấy
   }
 
-  Future<List<DocumentItemModel>> loadDocumentsByJobId(int jobId) async {
+  Future<List<DocumentItemModel>> loadDocumentsByJobIdAndTenant(
+    int jobId,
+    String tenantId,
+  ) async {
     final db = await _openDB();
     final maps = await db.query(
       'documents',
-      where: 'job_id = ?',
-      whereArgs: [jobId],
+      where: 'job_id = ? AND tenant_id = ?',
+      whereArgs: [jobId, tenantId],
     );
     return maps.map(DocumentItemModelDb.fromDbJson).toList();
   }
@@ -136,9 +145,14 @@ class DocumentLocalRepository {
       {
         'is_acknowledged': acknowledged ? 1 : 0,
         'updated_date_time': DateTime.now().toIso8601String(),
+        'sync': 0, // đánh dấu cần sync lại
       },
       where: 'id = ?',
       whereArgs: [documentId],
     );
+
+    // Có thể lưu vào list tạm để gửi lên server
+    final doc = await loadDocumentById(documentId);
+    if (doc != null) _unsyncedDocs.add(doc);
   }
 }
